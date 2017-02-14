@@ -16,6 +16,8 @@ class ViewController: UIViewController, UITextFieldDelegate,UITextViewDelegate {
     
     @IBOutlet weak var myContents: UITextView!
     
+    @IBOutlet weak var formView: UIView!
+    
     //datePickerが乗るView（下に隠しておく)
     let baseView:UIView = UIView(frame: CGRect(x: 0, y: 720, width: 200, height: 250))
     
@@ -78,8 +80,29 @@ class ViewController: UIViewController, UITextFieldDelegate,UITextViewDelegate {
         print("textViewShouldBeginEditing\n")
         
         print(textView.tag)
+        
+        UIView.animate(withDuration: 0.5, animations: { () -> Void in
+            
+            self.formView.frame.origin = CGPoint(x: 5, y:self.formView.frame.origin.y - 250)
+            
+            
+            
+        }, completion: {finished in print("上に現れました")})
         return true
     }
+    
+    @IBAction func tapClose(_ sender: UIButton) {
+        //formViewを元に戻す
+        myContents.resignFirstResponder()
+        UIView.animate(withDuration: 0.5, animations: { () -> Void in
+            
+            self.formView.frame.origin = CGPoint(x: 5, y:self.formView.frame.origin.y + 250)
+            
+            
+            
+        }, completion: {finished in print("上に現れました")})
+    }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
