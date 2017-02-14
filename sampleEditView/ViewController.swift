@@ -51,6 +51,10 @@ class ViewController: UIViewController, UITextFieldDelegate,UITextViewDelegate {
         //キーボードが出てたら閉じる
         myTitle.resignFirstResponder()
         myContents.resignFirstResponder()
+        
+        //日付のViewも一旦閉じる
+        hideBaseView()
+        
         switch textField.tag {
         case 1:
             //タイトル
@@ -81,6 +85,14 @@ class ViewController: UIViewController, UITextFieldDelegate,UITextViewDelegate {
         
         print(textView.tag)
         
+        //キーボードが出てたら閉じる
+        myTitle.resignFirstResponder()
+        myContents.resignFirstResponder()
+        
+        //日付のViewも一旦閉じる
+        hideBaseView()
+
+        
         UIView.animate(withDuration: 0.5, animations: { () -> Void in
             
             self.formView.frame.origin = CGPoint(x: 5, y:self.formView.frame.origin.y - 250)
@@ -103,6 +115,10 @@ class ViewController: UIViewController, UITextFieldDelegate,UITextViewDelegate {
         }, completion: {finished in print("上に現れました")})
     }
     
+    //baseViewを隠す
+    func hideBaseView(){
+       self.baseView.frame.origin = CGPoint(x: 0, y:self.view.frame.size.height)
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
