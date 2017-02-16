@@ -57,6 +57,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                         <connections>
+                                            <action selector="tapTitleReturn:" destination="BYZ-38-t0r" eventType="editingDidEndOnExit" id="beb-fj-xCp"/>
                                             <outlet property="delegate" destination="BYZ-38-t0r" id="gCz-2D-WFy"/>
                                         </connections>
                                     </textField>

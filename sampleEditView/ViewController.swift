@@ -18,17 +18,36 @@ class ViewController: UIViewController, UITextFieldDelegate,UITextViewDelegate {
     
     @IBOutlet weak var formView: UIView!
     
+    
     //datePickerが乗るView（下に隠しておく)
     let baseView:UIView = UIView(frame: CGRect(x: 0, y: 720, width: 200, height: 250))
     
     let diaryDatePicker:UIDatePicker = UIDatePicker(frame: CGRect(x: 10, y: 20, width: 300, height: 220))
     
+    let mySystemButton:UIButton = UIButton(type: .system)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // イベントの追加
+        diaryDatePicker.addTarget(self, action: #selector(showDateSelected(sender:)), for: .valueChanged)
         
         //baseViewにdatePickerを配置
         baseView.addSubview(diaryDatePicker)
+        
+        //baseViewにボタンを配置
+        // Systemボタンに配置するx,y座標とサイズを設定.
+        mySystemButton.frame = CGRect(x: self.view.frame.width-60, y: 0, width: 50, height: 20)
+        
+        // Systemボタンにタイトルを設定する.
+        mySystemButton.setTitle("Close", for: .normal)
+        
+        // イベントの追加
+        mySystemButton.addTarget(self, action: #selector(closeDatePickerView(sender:)), for: .touchUpInside)
+        
+        //baseViewにボタンを配置
+        baseView.addSubview(mySystemButton)
+
         
         //下にピッタリ配置、横幅ピッタリの大きさにしておく
         baseView.frame.origin = CGPoint(x: 0, y: self.view.frame.size.height)
@@ -118,6 +137,36 @@ class ViewController: UIViewController, UITextFieldDelegate,UITextViewDelegate {
     //baseViewを隠す
     func hideBaseView(){
        self.baseView.frame.origin = CGPoint(x: 0, y:self.view.frame.size.height)
+    }
+    
+    @IBAction func tapTitleReturn(_ sender: UITextField) {
+    }
+    
+    
+    //DatePickerが載っているViewを閉じる
+    func closeDatePickerView(sender: UIButton){
+        UIView.animate(withDuration: 0.5, animations: { () -> Void in
+            
+            self.baseView.frame.origin = CGPoint(x: 0, y:self.view.frame.size.height)
+            
+            
+            
+        }, completion: {finished in print("下に隠れました")})
+    }
+    
+    //DatePickerで、選択している日付を変えた時、日付用のTextFieldに値を表示
+    func showDateSelected(sender:UIDatePicker){
+    
+        // フォーマットを設定
+        let df = DateFormatter()
+        df.dateFormat = "yyyy/MM/dd"
+        
+        print(df.string(from: sender.date))
+        
+        let strSelectedDate = df.string(from: sender.date)
+        
+        myDate.text = strSelectedDate
+
     }
     
     override func didReceiveMemoryWarning() {
