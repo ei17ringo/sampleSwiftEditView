@@ -59,6 +59,31 @@ class ViewController: UIViewController, UITextFieldDelegate,UITextViewDelegate {
         self.view.addSubview(baseView)
 
         
+        //キーボードの上にcloseボタンを配置
+        //ビューを作成する。
+        let upView = UIView()
+        upView.frame.size.height = 60
+        upView.backgroundColor = UIColor.lightGray
+        
+        //「閉じるボタン」を作成する。
+        let closeButton = UIButton(frame:CGRect(x:self.view.bounds.size.width-70, y:0, width:70, height:50))
+        closeButton.setTitle("閉じる", for: .normal)
+        
+        
+        closeButton.addTarget(self, action: #selector(closeKeyboard(_:)), for: .touchUpInside)
+        
+        //ビューに「閉じるボタン」を追加する。
+        upView.addSubview(closeButton)
+        
+        //キーボードのアクセサリにビューを設定する。
+        myTitle.inputAccessoryView = upView
+        
+
+        //キーボードのアクセサリにビューを設定する。
+        myContents.inputAccessoryView = upView
+        
+        
+        
     }
     
     //入力開始
@@ -167,6 +192,12 @@ class ViewController: UIViewController, UITextFieldDelegate,UITextViewDelegate {
         
         myDate.text = strSelectedDate
 
+    }
+    
+    func closeKeyboard(_ sender: UIButton){
+        myTitle.resignFirstResponder()
+        myContents.resignFirstResponder()
+    
     }
     
     override func didReceiveMemoryWarning() {
